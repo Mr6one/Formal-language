@@ -1,0 +1,8 @@
+#!/bin/sh
+
+cmake CMakeLists.txt
+make
+./runTests
+lcov -t "runTests" -o tests.info -c -d ./CMakeFiles/runTests.dir/tests.cpp.gcda
+lcov --remove tests.info "/usr/include/*" "$HOME/$1/googletest-master/*" -o filtered.info
+genhtml -o report filtered.info
